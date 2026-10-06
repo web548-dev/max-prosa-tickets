@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Concert Tickets</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #0d0d0f;
+  color: #fff;
+  min-height: 100vh;
+}
+
+header {
+  padding: 35px 20px;
+  text-align: center;
+  border-bottom: 1px solid #29292d;
+}
+
+header h1 {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+header p {
+  color: #aaa;
+}
+
+.container {
+  width: 92%;
+  max-width: 1000px;
+  margin: 30px auto;
+}
+
+.events {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.event {
+  background: #18181c;
+  border: 1px solid #29292e;
+  border-radius: 14px;
+  padding: 22px;
+}
+
+.event h2 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.event p {
+  color: #aaa;
+  margin: 7px 0;
+}
+
+.price {
+  color: #fff !important;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 15px !important;
+}
+
+button {
+  width: 100%;
+  border: 0;
+  border-radius: 9px;
+  padding: 13px;
+  margin-top: 16px;
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: .88;
+}
+
+#checkout {
+  display: none;
+  background: #18181c;
+  border: 1px solid #29292e;
+  border-radius: 14px;
+  padding: 25px;
+  margin-top: 30px;
+}
+
+#checkout h2 {
+  margin-bottom: 20px;
+}
+
+.selected {
+  background: #101013;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+label {
+  display: block;
+  margin: 15px 0 7px;
+  color: #ccc;
+}
+
+input {
+  width: 100%;
+  padding: 13px;
+  border-radius: 9px;
+  border: 1px solid #34343a;
+  background: #101013;
+  color: white;
+  outline: none;
+}
+
+input:focus {
+  border-color: #777;
+}
+
+.total {
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.message {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  display: none;
+}
+
+.success {
+  display: block;
+  background: #12351d;
+  color: #8df0a7;
+}
+
+.error {
+  display: block;
+  background: #381616;
+  color: #ff9b9b;
+}
+
+footer {
+  text-align: center;
+  color: #666;
+  padding: 35px 15px;
+  font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Concert Tickets</h1>
+  <p>Choose your event and continue to checkout.</p>
+</header>
+
+<div class="container">
+
+  <div class="events">
+
+    <div class="event">
+      <h2>Event One</h2>
+      <p>📅 5 November 2026</p>
+      <p>📍 Event Venue</p>
+      <p class="price">€55</p>
+      <button onclick="selectEvent(
+        'Event One',
+        '5 November 2026',
+        'Event Venue',
+        55
+      )">
+        Select Ticket
+      </button>
+    </div>
+
+    <div class="event">
+      <h2>Event Two</h2>
+      <p>📅 6 November 2026</p>
+      <p>📍 Event Venue</p>
+      <p class="price">€55</p>
+      <button onclick="selectEvent(
+        'Event Two',
+        '6 November 2026',
+        'Event Venue',
+        55
+      )">
+        Select Ticket
+      </button>
+    </div>
+
+    <div class="event">
+      <h2>Event Three</h2>
+      <p>📅 8 November 2026</p>
+      <p>📍 Event Venue</p>
+      <p class="price">€55</p>
+      <button onclick="selectEvent(
+        'Event Three',
+        '8 November 2026',
+        'Event Venue',
+        55
+      )">
+        Select Ticket
+      </button>
+    </div>
+
+  </div>
+
+
+  <div id="checkout">
+
+    <h2>Checkout</h2>
+
+    <div class="selected" id="selectedEvent"></div>
+
+    <label for="name">Full name</label>
+    <input
+      id="name"
+      type="text"
+      placeholder="Enter your full name"
+    >
+
+    <label for="email">Email address</label>
+    <input
+      id="email"
+      type="email"
+      placeholder="Enter your email address"
+    >
+
+    <label for="voucher">Voucher code</label>
+    <input
+      id="voucher"
+      type="text"
+      placeholder="Enter your voucher code"
+    >
+
+    <button onclick="applyVoucher()">
+      Apply Voucher
+    </button>
+
+    <div id="voucherMessage" class="message"></div>
+
+    <div class="total">
+      Total: <span id="total">€0</span>
+    </div>
+
+    <button onclick="completeOrder()">
+      Continue
+    </button>
+
+    <div id="orderMessage" class="message"></div>
+
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Concert Tickets
+</footer>
+
+
+<script>
+
+let selectedPrice = 0;
+let discountedPrice = 0;
+let selectedEventName = "";
+let selectedDate = "";
+let selectedVenue = "";
+
+function selectEvent(name, date, venue, price) {
+
+  selectedEventName = name;
+  selectedDate = date;
+  selectedVenue = venue;
+
+  selectedPrice = price;
+  discountedPrice = price;
+
+  document.getElementById("checkout").style.display = "block";
+
+  document.getElementById("selectedEvent").innerHTML =
+    "<strong>Selected event</strong><br>" +
+    name + "<br>" +
+    date + "<br>" +
+    venue;
+
+  document.getElementById("total").textContent =
+    "€" + price;
+
+  document.getElementById("voucherMessage").style.display = "none";
+  document.getElementById("orderMessage").style.display = "none";
+
+  document.getElementById("checkout")
+    .scrollIntoView({ behavior: "smooth" });
+}
+
+
+function applyVoucher() {
+
+  const code =
+    document.getElementById("voucher").value.trim();
+
+  const message =
+    document.getElementById("voucherMessage");
+
+  if (!code) {
+
+    message.textContent =
+      "Please enter a voucher code.";
+
+    message.className = "message error";
+
+    return;
+  }
+
+  /*
+    Voucher validation will be connected
+    to the authorized demonstration system
+    separately.
+  */
+
+  message.textContent =
+    "Voucher entered. The voucher validation service will be connected next.";
+
+  message.className = "message success";
+}
+
+
+function completeOrder() {
+
+  const name =
+    document.getElementById("name").value.trim();
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const message =
+    document.getElementById("orderMessage");
+
+  if (!name) {
+
+    message.textContent =
+      "Please enter your name.";
+
+    message.className = "message error";
+
+    return;
+  }
+
+  if (!email) {
+
+    message.textContent =
+      "Please enter your email address.";
+
+    message.className = "message error";
+
+    return;
+  }
+
+  message.textContent =
+    "Your demonstration order has been received.";
+
+  message.className = "message success";
+}
+
+</script>
+
+</body>
+  </html>
