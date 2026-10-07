@@ -7,7 +7,6 @@
 <title>Concert Tickets 2026</title>
 
 <style>
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -19,8 +18,6 @@ body {
     background: #f4f5f7;
     color: #111827;
 }
-
-/* HEADER */
 
 header {
     background: #111827;
@@ -38,8 +35,6 @@ header p {
     color: #d1d5db;
 }
 
-/* MAIN */
-
 .container {
     width: 92%;
     max-width: 1150px;
@@ -50,12 +45,9 @@ header p {
     margin-bottom: 20px;
 }
 
-/* CONCERT CARDS */
-
 .concerts {
     display: grid;
-    grid-template-columns:
-        repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 20px;
 }
 
@@ -81,8 +73,6 @@ header p {
     margin: 18px 0;
 }
 
-/* BUTTONS */
-
 button {
     border: none;
     background: #111827;
@@ -104,8 +94,6 @@ button:hover {
 .danger {
     background: #dc2626;
 }
-
-/* BOOKING */
 
 .booking,
 .confirmation,
@@ -133,8 +121,7 @@ label {
     font-weight: bold;
 }
 
-input,
-select {
+input {
     width: 100%;
     padding: 12px;
     border: 1px solid #d1d5db;
@@ -161,8 +148,6 @@ select {
     color: #dc2626;
 }
 
-/* ADMIN */
-
 .admin-login {
     max-width: 450px;
     margin-left: auto;
@@ -184,7 +169,7 @@ select {
 table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 700px;
+    min-width: 750px;
 }
 
 th,
@@ -199,8 +184,6 @@ th {
     color: white;
 }
 
-/* CONFIRMATION */
-
 .confirmation {
     text-align: center;
 }
@@ -208,8 +191,6 @@ th {
 .confirmation p {
     margin: 10px 0;
 }
-
-/* FOOTER */
 
 footer {
     text-align: center;
@@ -226,10 +207,21 @@ footer {
     text-decoration: underline;
 }
 
-/* MOBILE */
+.admin-stat {
+    display: inline-block;
+    background: #f3f4f6;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin: 10px 10px 10px 0;
+}
+
+.admin-stat strong {
+    display: block;
+    font-size: 22px;
+    margin-top: 5px;
+}
 
 @media(max-width:600px) {
-
     header h1 {
         font-size: 25px;
     }
@@ -241,217 +233,122 @@ footer {
     .concert {
         padding: 18px;
     }
-
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
 <header>
-
     <h1>Concert Tickets 2026</h1>
-
-    <p>
-        Discover upcoming concerts and reserve your tickets.
-    </p>
-
+    <p>Discover upcoming concerts and reserve your tickets.</p>
 </header>
-
-
-<!-- =====================================================
-     MAIN CONTENT
-===================================================== -->
 
 <div class="container">
 
-    <h2 class="section-title">
-        Upcoming Concerts
-    </h2>
+    <h2 class="section-title">Upcoming Concerts</h2>
 
-    <!-- CONCERTS WILL BE INSERTED HERE -->
+    <div class="concerts" id="concertList"></div>
 
-    <div
-        class="concerts"
-        id="concertList">
-    </div>
+    <!-- BOOKING -->
+    <section class="booking" id="bookingSection">
 
+        <h2>Book Your Ticket</h2>
 
-    <!-- =================================================
-         BOOKING FORM
-    ================================================= -->
+        <form id="bookingForm">
 
-    <section
-        class="booking"
-        id="bookingSection">
+            <label>Selected Concert</label>
+            <input type="text" id="selectedConcert" readonly>
 
-        <h2>
-            Book Your Ticket
-        </h2>
-
-        <form
-            id="bookingForm">
-
-            <label>
-                Selected Concert
-            </label>
-
-            <input
-                type="text"
-                id="selectedConcert"
-                readonly>
-
-
-            <label>
-                Full Name
-            </label>
-
+            <label>Full Name</label>
             <input
                 type="text"
                 id="customerName"
                 placeholder="Enter your full name"
-                required>
+                required
+            >
 
-
-            <label>
-                Email Address
-            </label>
-
+            <label>Email Address</label>
             <input
                 type="email"
                 id="customerEmail"
                 placeholder="Enter your email"
-                required>
+                required
+            >
 
-
-            <label>
-                Number of Tickets
-            </label>
-
+            <label>Number of Tickets</label>
             <input
                 type="number"
                 id="ticketQuantity"
                 min="1"
                 value="1"
-                required>
+                required
+            >
 
-
-            <label>
-                Voucher Code
-            </label>
-
+            <label>Voucher Code</label>
             <input
                 type="text"
                 id="voucherCode"
-                placeholder="Enter voucher code">
-
+                placeholder="Enter voucher code"
+            >
 
             <button
                 type="button"
                 onclick="applyVoucher()"
                 style="margin-top:12px;">
-
                 Apply Voucher
-
             </button>
 
-
-            <div
-                id="voucherResult"
-                class="voucher-result">
-            </div>
-
+            <div id="voucherResult" class="voucher-result"></div>
 
             <div class="total">
-
-                Total:
-                €<span id="totalPrice">0.00</span>
-
+                Total: €<span id="totalPrice">0.00</span>
             </div>
 
-
             <button type="submit">
-
                 Submit Booking
-
             </button>
 
         </form>
-
     </section>
 
+    <!-- CONFIRMATION -->
+    <section class="confirmation" id="confirmationSection">
 
-    <!-- =================================================
-         CONFIRMATION
-    ================================================= -->
+        <h2>Booking Received</h2>
 
-    <section
-        class="confirmation"
-        id="confirmationSection">
+        <p>Your booking request has been received successfully.</p>
 
-        <h2>
-            Booking Received
-        </h2>
-
-        <p>
-            Your booking request has been received successfully.
-        </p>
-
-        <p>
-            You will receive a message to your email shortly.
-        </p>
+        <p>You will receive a message to your email shortly.</p>
 
         <button
-            onclick="location.reload()"
+            onclick="returnToConcerts()"
             style="margin-top:20px;">
-
             Return to Concerts
-
         </button>
 
     </section>
 
+    <!-- ADMIN LOGIN -->
+    <section class="admin-login" id="adminLogin">
 
-    <!-- =================================================
-         ADMIN LOGIN
-    ================================================= -->
+        <h2>Administrator Access</h2>
 
-    <section
-        class="admin-login"
-        id="adminLogin">
+        <p>Enter the administrator password to continue.</p>
 
-        <h2>
-            Administrator Access
-        </h2>
-
-        <p>
-            Enter the administrator password to continue.
-        </p>
-
-
-        <label>
-            Password
-        </label>
+        <label>Password</label>
 
         <input
             type="password"
             id="adminPassword"
-            placeholder="Enter administrator password">
-
+            placeholder="Enter administrator password"
+        >
 
         <button
             onclick="loginAdmin()"
             style="margin-top:15px;">
-
             Continue
-
         </button>
-
 
         <p
             id="adminError"
@@ -461,155 +358,84 @@ footer {
 
     </section>
 
+    <!-- ADMIN PANEL -->
+    <section class="admin-panel" id="adminPanel">
 
-    <!-- =================================================
-         ADMIN PANEL
-    ================================================= -->
+        <h2>Administrator Dashboard</h2>
 
-    <section
-        class="admin-panel"
-        id="adminPanel">
+        <p>Voucher and booking management center.</p>
 
-        <h2>
-            Administrator Dashboard
-        </h2>
-
-        <p>
-            Manage voucher codes and view customer booking records.
-        </p>
-
+        <div id="adminStats"></div>
 
         <!-- VOUCHERS -->
-
         <div class="admin-section">
 
-            <h3>
-                Voucher Codes
-            </h3>
+            <h3>Voucher Codes</h3>
 
             <table>
 
                 <thead>
-
                     <tr>
-
-                        <th>
-                            Concert
-                        </th>
-
-                        <th>
-                            Voucher Code
-                        </th>
-
-                        <th>
-                            Status
-                        </th>
-
+                        <th>Concert</th>
+                        <th>Voucher Code</th>
+                        <th>Status</th>
                     </tr>
-
                 </thead>
 
-                <tbody
-                    id="voucherTable">
-                </tbody>
+                <tbody id="voucherTable"></tbody>
 
             </table>
 
         </div>
-
 
         <!-- BOOKINGS -->
-
         <div class="admin-section">
 
-            <h3>
-                Customer Bookings
-            </h3>
+            <h3>Customer Bookings</h3>
 
             <table>
 
                 <thead>
-
                     <tr>
-
-                        <th>
-                            Name
-                        </th>
-
-                        <th>
-                            Email
-                        </th>
-
-                        <th>
-                            Concert
-                        </th>
-
-                        <th>
-                            Date
-                        </th>
-
-                        <th>
-                            Tickets
-                        </th>
-
-                        <th>
-                            Total
-                        </th>
-
-                        <th>
-                            Voucher
-                        </th>
-
-                        <th>
-                            Booking Time
-                        </th>
-
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Concert</th>
+                        <th>Date</th>
+                        <th>Tickets</th>
+                        <th>Total</th>
+                        <th>Voucher</th>
+                        <th>Purchase Time</th>
                     </tr>
-
                 </thead>
 
-                <tbody
-                    id="bookingTable">
-                </tbody>
+                <tbody id="bookingTable"></tbody>
 
             </table>
 
         </div>
-
 
         <button
             class="danger"
             onclick="logoutAdmin()"
             style="margin-top:25px;">
-
             Logout
-
         </button>
 
     </section>
 
 </div>
 
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
 <footer>
 
     <span
         id="copyrightAdmin"
         onclick="openAdminLogin()">
-
         Copyright © 2026
-
     </span>
 
-    Concert Tickets.
-    All rights reserved.
+    Concert Tickets. All rights reserved.
 
 </footer>
-
 
 <script>
 
@@ -621,9 +447,8 @@ const ADMIN_PASSWORD = "8158830943";
 
 
 /* =====================================================
-   CONCERT INFORMATION
-
-   Replace these with your actual 8 concerts.
+   CONCERTS
+   Replace these with your actual concerts.
 ===================================================== */
 
 const concerts = [
@@ -700,7 +525,6 @@ const concerts = [
 ===================================================== */
 
 let selectedConcertIndex = null;
-
 let voucherApplied = false;
 
 
@@ -710,11 +534,9 @@ let voucherApplied = false;
 
 function displayConcerts() {
 
-    const list =
-        document.getElementById("concertList");
+    const list = document.getElementById("concertList");
 
     list.innerHTML = "";
-
 
     concerts.forEach((concert, index) => {
 
@@ -745,11 +567,8 @@ function displayConcerts() {
                     €${concert.price.toFixed(2)}
                 </div>
 
-                <button
-                    onclick="selectConcert(${index})">
-
+                <button onclick="selectConcert(${index})">
                     Book Ticket
-
                 </button>
 
             </div>
@@ -768,170 +587,106 @@ function displayConcerts() {
 function selectConcert(index) {
 
     selectedConcertIndex = index;
-
     voucherApplied = false;
 
+    const concert = concerts[index];
 
-    const concert =
-        concerts[index];
+    document.getElementById("bookingSection").style.display = "block";
+    document.getElementById("confirmationSection").style.display = "none";
 
+    document.getElementById("selectedConcert").value =
+        concert.artist + " - " + concert.city;
 
-    document
-        .getElementById("bookingSection")
-        .style.display = "block";
+    document.getElementById("voucherCode").value = "";
 
+    document.getElementById("voucherResult").textContent = "";
 
-    document
-        .getElementById("confirmationSection")
-        .style.display = "none";
-
-
-    document
-        .getElementById("selectedConcert")
-        .value =
-        concert.artist +
-        " - " +
-        concert.city;
-
-
-    document
-        .getElementById("voucherCode")
-        .value = "";
-
-
-    document
-        .getElementById("voucherResult")
-        .textContent = "";
-
+    document.getElementById("ticketQuantity").value = 1;
 
     updateTotal();
 
-
-    document
-        .getElementById("bookingSection")
-        .scrollIntoView({
-            behavior: "smooth"
-        });
-
+    document.getElementById("bookingSection").scrollIntoView({
+        behavior: "smooth"
+    });
 }
 
 
 /* =====================================================
-   CALCULATE TOTAL
+   UPDATE TOTAL
 ===================================================== */
 
 function updateTotal() {
 
-    if (
-        selectedConcertIndex === null
-    ) return;
-
-
-    const quantity =
-        Number(
-            document
-                .getElementById("ticketQuantity")
-                .value
-        ) || 1;
-
-
-    const concert =
-        concerts[selectedConcertIndex];
-
-
-    let total =
-        concert.price * quantity;
-
-
-    if (voucherApplied) {
-
-        total = 0;
-
+    if (selectedConcertIndex === null) {
+        return;
     }
 
+    const quantity =
+        Number(document.getElementById("ticketQuantity").value) || 1;
 
-    document
-        .getElementById("totalPrice")
-        .textContent =
+    const concert = concerts[selectedConcertIndex];
+
+    let total = concert.price * quantity;
+
+    if (voucherApplied) {
+        total = 0;
+    }
+
+    document.getElementById("totalPrice").textContent =
         total.toFixed(2);
-
 }
 
 
 document
     .getElementById("ticketQuantity")
-    .addEventListener(
-        "input",
-        updateTotal
-    );
+    .addEventListener("input", updateTotal);
 
 
 /* =====================================================
-   CREATE 20 VOUCHERS FOR EACH CONCERT
+   GENERATE 20 VOUCHERS FOR EVERY CONCERT
 ===================================================== */
 
 function generateVouchers() {
 
-    let vouchers =
-        JSON.parse(
-            localStorage.getItem(
-                "concertVouchers"
-            )
-        );
-
+    let vouchers = JSON.parse(
+        localStorage.getItem("concertVouchers")
+    );
 
     if (vouchers) {
-
         return vouchers;
-
     }
-
 
     vouchers = {};
 
+    concerts.forEach((concert, concertIndex) => {
 
-    concerts.forEach(
-        (concert, concertIndex) => {
+        vouchers[concertIndex] = [];
 
-            vouchers[concertIndex] = [];
+        for (let i = 1; i <= 20; i++) {
 
+            vouchers[concertIndex].push({
 
-            for (
-                let i = 1;
-                i <= 20;
-                i++
-            ) {
+                code:
+                    "C" +
+                    (concertIndex + 1) +
+                    "-" +
+                    String(i).padStart(2, "0") +
+                    "-2026",
 
-                vouchers[
-                    concertIndex
-                ].push({
+                used: false
 
-                    code:
-                        "C" +
-                        (concertIndex + 1) +
-                        "-" +
-                        String(i)
-                            .padStart(2, "0") +
-                        "-2026",
-
-                    used: false
-
-                });
-
-            }
+            });
 
         }
-    );
 
+    });
 
     localStorage.setItem(
         "concertVouchers",
         JSON.stringify(vouchers)
     );
 
-
     return vouchers;
-
 }
 
 
@@ -942,30 +697,18 @@ function generateVouchers() {
 function applyVoucher() {
 
     const result =
-        document
-            .getElementById(
-                "voucherResult"
-            );
+        document.getElementById("voucherResult");
 
-
-    if (
-        selectedConcertIndex === null
-    ) {
-
+    if (selectedConcertIndex === null) {
         return;
-
     }
-
 
     const code =
         document
-            .getElementById(
-                "voucherCode"
-            )
+            .getElementById("voucherCode")
             .value
             .trim()
             .toUpperCase();
-
 
     if (!code) {
 
@@ -980,26 +723,17 @@ function applyVoucher() {
         updateTotal();
 
         return;
-
     }
 
-
-    const vouchers =
-        generateVouchers();
-
+    const vouchers = generateVouchers();
 
     const concertVouchers =
-        vouchers[
-            selectedConcertIndex
-        ];
-
+        vouchers[selectedConcertIndex];
 
     const voucher =
         concertVouchers.find(
-            item =>
-                item.code === code
+            item => item.code === code
         );
-
 
     if (!voucher) {
 
@@ -1014,9 +748,7 @@ function applyVoucher() {
         updateTotal();
 
         return;
-
     }
-
 
     if (voucher.used) {
 
@@ -1031,12 +763,9 @@ function applyVoucher() {
         updateTotal();
 
         return;
-
     }
 
-
     voucherApplied = true;
-
 
     result.textContent =
         "Voucher accepted — 100% discount applied.";
@@ -1044,9 +773,7 @@ function applyVoucher() {
     result.className =
         "voucher-result success";
 
-
     updateTotal();
-
 }
 
 
@@ -1056,130 +783,265 @@ function applyVoucher() {
 
 document
     .getElementById("bookingForm")
-    .addEventListener(
-        "submit",
-        function(event) {
+    .addEventListener("submit", function(event) {
 
-            event.preventDefault();
+        event.preventDefault();
 
+        if (selectedConcertIndex === null) {
+            return;
+        }
 
-            if (
-                selectedConcertIndex === null
-            ) return;
+        const name =
+            document
+                .getElementById("customerName")
+                .value
+                .trim();
 
+        const email =
+            document
+                .getElementById("customerEmail")
+                .value
+                .trim();
 
-            const name =
+        const quantity =
+            Number(
                 document
-                    .getElementById(
-                        "customerName"
-                    )
+                    .getElementById("ticketQuantity")
                     .value
-                    .trim();
+            );
+
+        const voucher =
+            document
+                .getElementById("voucherCode")
+                .value
+                .trim()
+                .toUpperCase();
+
+        const concert =
+            concerts[selectedConcertIndex];
+
+        let total =
+            concert.price * quantity;
 
 
-            const email =
-                document
-                    .getElementById(
-                        "customerEmail"
-                    )
-                    .value
-                    .trim();
+        /* Check voucher again before submission */
 
+        if (voucherApplied) {
 
-            const quantity =
-                Number(
-                    document
-                        .getElementById(
-                            "ticketQuantity"
-                        )
-                        .value
+            const vouchers = generateVouchers();
+
+            const validVoucher =
+                vouchers[selectedConcertIndex].find(
+                    item => item.code === voucher
                 );
 
+            if (!validVoucher || validVoucher.used) {
 
-            const voucher =
-                document
-                    .getElementById(
-                        "voucherCode"
-                    )
-                    .value
-                    .trim()
-                    .toUpperCase();
+                alert(
+                    "This voucher is no longer available."
+                );
 
+                voucherApplied = false;
 
-            const concert =
-                concerts[
-                    selectedConcertIndex
-                ];
+                updateTotal();
 
-
-            let total =
-                concert.price *
-                quantity;
-
-
-            /* Mark voucher as used */
-
-            if (voucherApplied) {
-
-                total = 0;
-
-
-                const vouchers =
-                    generateVouchers();
-
-
-                const validVoucher =
-                    vouchers[
-                        selectedConcertIndex
-                    ].find(
-                        item =>
-                            item.code === voucher
-                    );
-
-
-                if (validVoucher) {
-
-                    validVoucher.used = true;
-
-
-                    localStorage.setItem(
-                        "concertVouchers",
-                        JSON.stringify(
-                            vouchers
-                        )
-                    );
-
-                }
-
+                return;
             }
 
+            validVoucher.used = true;
 
-            /* Create booking record */
+            localStorage.setItem(
+                "concertVouchers",
+                JSON.stringify(vouchers)
+            );
 
-            const booking = {
+            total = 0;
+        }
 
-                name: name,
 
-                email: email,
+        /* Booking record */
 
-                concert:
-                    concert.artist,
+        const booking = {
 
-                date:
-                    concert.date,
+            id:
+                "BK-" +
+                Date.now(),
 
-                city:
-                    concert.city,
+            name: name,
 
-                venue:
-                    concert.venue,
+            email: email,
 
-                tickets:
-                    quantity,
+            concert:
+                concert.artist,
 
-                total:
-                    total,
+            date:
+                concert.date,
 
-                voucher:
-                    voucher ||
-                    "N
+            city:
+                concert.city,
+
+            venue:
+                concert.venue,
+
+            tickets:
+                quantity,
+
+            total:
+                total,
+
+            voucher:
+                voucher || "None",
+
+            createdAt:
+                new Date().toLocaleString()
+
+        };
+
+
+        /* Load previous bookings */
+
+        const bookings =
+            JSON.parse(
+                localStorage.getItem(
+                    "concertBookings"
+                ) || "[]"
+            );
+
+
+        bookings.push(booking);
+
+
+        localStorage.setItem(
+            "concertBookings",
+            JSON.stringify(bookings)
+        );
+
+
+        /* Show confirmation */
+
+        document.getElementById("bookingSection").style.display =
+            "none";
+
+        document.getElementById("confirmationSection").style.display =
+            "block";
+
+        document.getElementById("bookingForm").reset();
+
+        selectedConcertIndex = null;
+        voucherApplied = false;
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
+
+
+/* =====================================================
+   RETURN TO CONCERTS
+===================================================== */
+
+function returnToConcerts() {
+
+    document.getElementById("confirmationSection").style.display =
+        "none";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* =====================================================
+   OPEN ADMIN LOGIN
+===================================================== */
+
+function openAdminLogin() {
+
+    document.getElementById("adminLogin").style.display =
+        "block";
+
+    document.getElementById("adminPanel").style.display =
+        "none";
+
+    document.getElementById("adminPassword").value = "";
+
+    document.getElementById("adminError").textContent = "";
+
+    document.getElementById("adminLogin").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+
+/* =====================================================
+   ADMIN LOGIN
+===================================================== */
+
+function loginAdmin() {
+
+    const password =
+        document.getElementById("adminPassword").value.trim();
+
+    const error =
+        document.getElementById("adminError");
+
+
+    if (password === ADMIN_PASSWORD) {
+
+        document.getElementById("adminLogin").style.display =
+            "none";
+
+        document.getElementById("adminPanel").style.display =
+            "block";
+
+        error.textContent = "";
+
+        loadAdminData();
+
+        document.getElementById("adminPanel").scrollIntoView({
+            behavior: "smooth"
+        });
+
+    } else {
+
+        error.textContent =
+            "Incorrect password. Please try again.";
+
+    }
+}
+
+
+/* =====================================================
+   ENTER KEY FOR ADMIN LOGIN
+===================================================== */
+
+document
+    .getElementById("adminPassword")
+    .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+            loginAdmin();
+        }
+
+    });
+
+
+/* =====================================================
+   LOAD ADMIN DATA
+===================================================== */
+
+function loadAdminData() {
+
+    const vouchers = generateVouchers();
+
+    const voucherTable =
+        document.getElementById("voucherTable");
+
+    voucherTable.innerHTML = "";
+
+
+    let totalVouchers = 0;
+ 
