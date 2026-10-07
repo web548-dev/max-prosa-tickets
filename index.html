@@ -1,383 +1,422 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Concert Tickets</title>
+  <title>Christophe Willem - 2027 Tour</title>
 
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-body {
-  background: #0d0d0f;
-  color: #fff;
-  min-height: 100vh;
-}
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f5f5;
+      color: #171717;
+      line-height: 1.5;
+    }
 
-header {
-  padding: 35px 20px;
-  text-align: center;
-  border-bottom: 1px solid #29292d;
-}
+    header {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 45px 20px;
+    }
 
-header h1 {
-  font-size: 30px;
-  margin-bottom: 8px;
-}
+    header h1 {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
 
-header p {
-  color: #aaa;
-}
+    header p {
+      color: #ccc;
+      font-size: 17px;
+    }
 
-.container {
-  width: 92%;
-  max-width: 1000px;
-  margin: 30px auto;
-}
+    .container {
+      width: 92%;
+      max-width: 1100px;
+      margin: 35px auto;
+    }
 
-.events {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 18px;
-}
+    .concert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 20px;
+    }
 
-.event {
-  background: #18181c;
-  border: 1px solid #29292e;
-  border-radius: 14px;
-  padding: 22px;
-}
+    .concert-card {
+      background: white;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
 
-.event h2 {
-  font-size: 20px;
-  margin-bottom: 12px;
-}
+    .concert-card h2 {
+      font-size: 21px;
+      margin-bottom: 15px;
+    }
 
-.event p {
-  color: #aaa;
-  margin: 7px 0;
-}
+    .concert-card p {
+      margin: 7px 0;
+      color: #555;
+    }
 
-.price {
-  color: #fff !important;
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 15px !important;
-}
+    .price {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 18px 0;
+    }
 
-button {
-  width: 100%;
-  border: 0;
-  border-radius: 9px;
-  padding: 13px;
-  margin-top: 16px;
-  background: #fff;
-  color: #000;
-  font-weight: bold;
-  cursor: pointer;
-}
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      padding: 13px;
+      background: #111;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
 
-button:hover {
-  opacity: .88;
-}
+    button:hover {
+      background: #333;
+    }
 
-#checkout {
-  display: none;
-  background: #18181c;
-  border: 1px solid #29292e;
-  border-radius: 14px;
-  padding: 25px;
-  margin-top: 30px;
-}
+    #checkout {
+      display: none;
+      background: white;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 28px;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
 
-#checkout h2 {
-  margin-bottom: 20px;
-}
+    #checkout h2 {
+      margin-bottom: 20px;
+    }
 
-.selected {
-  background: #101013;
-  border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 20px;
-  line-height: 1.6;
-}
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 16px 0 7px;
+    }
 
-label {
-  display: block;
-  margin: 15px 0 7px;
-  color: #ccc;
-}
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font-size: 16px;
+    }
 
-input {
-  width: 100%;
-  padding: 13px;
-  border-radius: 9px;
-  border: 1px solid #34343a;
-  background: #101013;
-  color: white;
-  outline: none;
-}
+    .summary {
+      background: #f2f2f2;
+      padding: 18px;
+      border-radius: 9px;
+      margin-bottom: 20px;
+    }
 
-input:focus {
-  border-color: #777;
-}
+    .summary p {
+      margin: 6px 0;
+    }
 
-.total {
-  margin-top: 20px;
-  font-size: 22px;
-  font-weight: bold;
-}
+    .total {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 15px;
+    }
 
-.message {
-  margin-top: 15px;
-  padding: 12px;
-  border-radius: 8px;
-  display: none;
-}
+    #confirmation {
+      display: none;
+      background: white;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 40px 25px;
+      border-radius: 14px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
 
-.success {
-  display: block;
-  background: #12351d;
-  color: #8df0a7;
-}
+    #confirmation h2 {
+      margin-bottom: 15px;
+    }
 
-.error {
-  display: block;
-  background: #381616;
-  color: #ff9b9b;
-}
+    footer {
+      text-align: center;
+      padding: 35px 15px;
+      color: #777;
+      font-size: 14px;
+    }
 
-footer {
-  text-align: center;
-  color: #666;
-  padding: 35px 15px;
-  font-size: 13px;
-}
-</style>
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 27px;
+      }
+
+      .container {
+        width: 94%;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-  <h1>Concert Tickets</h1>
-  <p>Choose your event and continue to checkout.</p>
+  <h1>Christophe Willem</h1>
+  <p>2027 Tour — Concert Tickets</p>
 </header>
 
-<div class="container">
+<main class="container">
 
-  <div class="events">
+  <div class="concert-grid">
 
-    <div class="event">
-      <h2>Event One</h2>
-      <p>📅 5 November 2026</p>
-      <p>📍 Event Venue</p>
-      <p class="price">€55</p>
-      <button onclick="selectEvent(
-        'Event One',
-        '5 November 2026',
-        'Event Venue',
-        55
-      )">
+    <!-- 1 -->
+    <div class="concert-card">
+      <h2>Forges-les-Eaux</h2>
+      <p><strong>Date:</strong> 27 February 2027</p>
+      <p><strong>Venue:</strong> L’Espace de Forges</p>
+      <div class="price">€90</div>
+      <button onclick="chooseConcert('Forges-les-Eaux', '27 February 2027', 'L’Espace de Forges', 90)">
         Select Ticket
       </button>
     </div>
 
-    <div class="event">
-      <h2>Event Two</h2>
-      <p>📅 6 November 2026</p>
-      <p>📍 Event Venue</p>
-      <p class="price">€55</p>
-      <button onclick="selectEvent(
-        'Event Two',
-        '6 November 2026',
-        'Event Venue',
-        55
-      )">
+    <!-- 2 -->
+    <div class="concert-card">
+      <h2>Dunkerque</h2>
+      <p><strong>Date:</strong> 5 March 2027</p>
+      <p><strong>Venue:</strong> Le Kursaal</p>
+      <div class="price">€75</div>
+      <button onclick="chooseConcert('Dunkerque', '5 March 2027', 'Le Kursaal', 75)">
         Select Ticket
       </button>
     </div>
 
-    <div class="event">
-      <h2>Event Three</h2>
-      <p>📅 8 November 2026</p>
-      <p>📍 Event Venue</p>
-      <p class="price">€55</p>
-      <button onclick="selectEvent(
-        'Event Three',
-        '8 November 2026',
-        'Event Venue',
-        55
-      )">
+    <!-- 3 -->
+    <div class="concert-card">
+      <h2>Saint-Quentin</h2>
+      <p><strong>Date:</strong> 11 March 2027</p>
+      <p><strong>Venue:</strong> Le Splendid</p>
+      <div class="price">€75</div>
+      <button onclick="chooseConcert('Saint-Quentin', '11 March 2027', 'Le Splendid', 75)">
+        Select Ticket
+      </button>
+    </div>
+
+    <!-- 4 -->
+    <div class="concert-card">
+      <h2>Quimper</h2>
+      <p><strong>Date:</strong> 26 March 2027</p>
+      <p><strong>Venue:</strong> Kostum Park</p>
+      <div class="price">€75</div>
+      <button onclick="chooseConcert('Quimper', '26 March 2027', 'Kostum Park', 75)">
+        Select Ticket
+      </button>
+    </div>
+
+    <!-- 5 -->
+    <div class="concert-card">
+      <h2>Le Cannet</h2>
+      <p><strong>Date:</strong> 2 April 2027</p>
+      <p><strong>Venue:</strong> La Palestre</p>
+      <div class="price">€70</div>
+      <button onclick="chooseConcert('Le Cannet', '2 April 2027', 'La Palestre', 70)">
+        Select Ticket
+      </button>
+    </div>
+
+    <!-- 6 -->
+    <div class="concert-card">
+      <h2>Montpellier</h2>
+      <p><strong>Date:</strong> 4 April 2027</p>
+      <p><strong>Venue:</strong> Le Corum</p>
+      <div class="price">€70</div>
+      <button onclick="chooseConcert('Montpellier', '4 April 2027', 'Le Corum', 70)">
+        Select Ticket
+      </button>
+    </div>
+
+    <!-- 7 -->
+    <div class="concert-card">
+      <h2>Pau</h2>
+      <p><strong>Date:</strong> 8 April 2027</p>
+      <p><strong>Venue:</strong> Zénith de Pau</p>
+      <div class="price">€75</div>
+      <button onclick="chooseConcert('Pau', '8 April 2027', 'Zénith de Pau', 75)">
+        Select Ticket
+      </button>
+    </div>
+
+    <!-- 8 -->
+    <div class="concert-card">
+      <h2>Paris</h2>
+      <p><strong>Date:</strong> 9 December 2027</p>
+      <p><strong>Venue:</strong> Accor Arena</p>
+      <div class="price">€65</div>
+      <button onclick="chooseConcert('Paris', '9 December 2027', 'Accor Arena', 65)">
         Select Ticket
       </button>
     </div>
 
   </div>
 
+  <!-- CHECKOUT -->
+  <section id="checkout">
 
-  <div id="checkout">
+    <h2>Ticket Checkout</h2>
 
-    <h2>Checkout</h2>
+    <div class="summary">
+      <p><strong>Concert:</strong> <span id="selectedConcert"></span></p>
+      <p><strong>Date:</strong> <span id="selectedDate"></span></p>
+      <p><strong>Venue:</strong> <span id="selectedVenue"></span></p>
 
-    <div class="selected" id="selectedEvent"></div>
+      <label for="quantity">Number of tickets</label>
 
-    <label for="name">Full name</label>
+      <input
+        id="quantity"
+        type="number"
+        min="1"
+        max="10"
+        value="1"
+        onchange="calculateTotal()"
+      >
+
+      <div class="total">
+        Total: €<span id="totalPrice">0</span>
+      </div>
+    </div>
+
+    <label for="customerName">Full name</label>
     <input
-      id="name"
+      id="customerName"
       type="text"
       placeholder="Enter your full name"
     >
 
-    <label for="email">Email address</label>
+    <label for="customerEmail">Email address</label>
     <input
-      id="email"
+      id="customerEmail"
       type="email"
       placeholder="Enter your email address"
     >
 
-    <label for="voucher">Voucher code</label>
-    <input
-      id="voucher"
-      type="text"
-      placeholder="Enter your voucher code"
-    >
+    <br><br>
 
-    <button onclick="applyVoucher()">
-      Apply Voucher
-    </button>
-
-    <div id="voucherMessage" class="message"></div>
-
-    <div class="total">
-      Total: <span id="total">€0</span>
-    </div>
-
-    <button onclick="completeOrder()">
+    <button onclick="submitOrder()">
       Continue
     </button>
 
-    <div id="orderMessage" class="message"></div>
+  </section>
 
-  </div>
+  <!-- CONFIRMATION -->
+  <section id="confirmation">
 
-</div>
+    <h2>Order Received</h2>
+
+    <p>
+      Thank you for your ticket request.
+    </p>
+
+    <br>
+
+    <p>
+      You will receive a message to your email shortly.
+    </p>
+
+    <br>
+
+    <button onclick="location.reload()">
+      Back to concerts
+    </button>
+
+  </section>
+
+</main>
 
 <footer>
-  © 2026 Concert Tickets
+  © 2026 Concert Ticket Website
 </footer>
-
 
 <script>
 
-let selectedPrice = 0;
-let discountedPrice = 0;
-let selectedEventName = "";
-let selectedDate = "";
-let selectedVenue = "";
+  let ticketPrice = 0;
 
-function selectEvent(name, date, venue, price) {
+  function chooseConcert(city, date, venue, price) {
 
-  selectedEventName = name;
-  selectedDate = date;
-  selectedVenue = venue;
+    ticketPrice = price;
 
-  selectedPrice = price;
-  discountedPrice = price;
+    document.getElementById("selectedConcert").textContent =
+      "Christophe Willem — " + city;
 
-  document.getElementById("checkout").style.display = "block";
+    document.getElementById("selectedDate").textContent =
+      date;
 
-  document.getElementById("selectedEvent").innerHTML =
-    "<strong>Selected event</strong><br>" +
-    name + "<br>" +
-    date + "<br>" +
-    venue;
+    document.getElementById("selectedVenue").textContent =
+      venue;
 
-  document.getElementById("total").textContent =
-    "€" + price;
+    document.getElementById("quantity").value = 1;
 
-  document.getElementById("voucherMessage").style.display = "none";
-  document.getElementById("orderMessage").style.display = "none";
+    calculateTotal();
 
-  document.getElementById("checkout")
-    .scrollIntoView({ behavior: "smooth" });
-}
+    document.getElementById("checkout").style.display = "block";
 
-
-function applyVoucher() {
-
-  const code =
-    document.getElementById("voucher").value.trim();
-
-  const message =
-    document.getElementById("voucherMessage");
-
-  if (!code) {
-
-    message.textContent =
-      "Please enter a voucher code.";
-
-    message.className = "message error";
-
-    return;
+    document.getElementById("checkout").scrollIntoView({
+      behavior: "smooth"
+    });
   }
 
-  /*
-    Voucher validation will be connected
-    to the authorized demonstration system
-    separately.
-  */
+  function calculateTotal() {
 
-  message.textContent =
-    "Voucher entered. The voucher validation service will be connected next.";
+    const quantity =
+      Number(document.getElementById("quantity").value);
 
-  message.className = "message success";
-}
+    const safeQuantity =
+      Math.max(1, Math.min(10, quantity || 1));
 
+    document.getElementById("quantity").value =
+      safeQuantity;
 
-function completeOrder() {
-
-  const name =
-    document.getElementById("name").value.trim();
-
-  const email =
-    document.getElementById("email").value.trim();
-
-  const message =
-    document.getElementById("orderMessage");
-
-  if (!name) {
-
-    message.textContent =
-      "Please enter your name.";
-
-    message.className = "message error";
-
-    return;
+    document.getElementById("totalPrice").textContent =
+      ticketPrice * safeQuantity;
   }
 
-  if (!email) {
+  function submitOrder() {
 
-    message.textContent =
-      "Please enter your email address.";
+    const name =
+      document.getElementById("customerName").value.trim();
 
-    message.className = "message error";
+    const email =
+      document.getElementById("customerEmail").value.trim();
 
-    return;
+    if (name === "") {
+      alert("Please enter your full name.");
+      return;
+    }
+
+    if (email === "") {
+      alert("Please enter your email address.");
+      return;
+    }
+
+    document.getElementById("checkout").style.display =
+      "none";
+
+    document.getElementById("confirmation").style.display =
+      "block";
+
+    document.getElementById("confirmation").scrollIntoView({
+      behavior: "smooth"
+    });
   }
-
-  message.textContent =
-    "Your demonstration order has been received.";
-
-  message.className = "message success";
-}
 
 </script>
 
 </body>
-  </html>
+</html>
